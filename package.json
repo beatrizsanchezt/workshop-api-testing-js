@@ -4,7 +4,8 @@
   "description": "This is a Workshop about Api Testing in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "tslint --project tsconfig.json test/**/*.ts"
   },
   "keywords": [
     "api-testing",
@@ -15,6 +16,12 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
+    "http-status-codes": "^1.4.0",
     "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "eslint-plugin-import": "^2.19.1",
+    "superagent": "^5.1.3",
+    "superagent-promise": "^1.1.0"
   }
 }
