@@ -4,7 +4,8 @@
   "description": "This is a Workshop about Api Testing in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report,reportFilename=ApiTesting"
+    "test": "npm run lint && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report,reportFilename=ApiTesting",
+    "lint": "eslint ./test/**/*.js"
   },
   "keywords": [
     "api-testing",
@@ -19,6 +20,8 @@
     "mocha": "^6.2.2"
   },
   "dependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
     "mochawesome": "^4.1.0",
     "superagent": "^5.1.3",
