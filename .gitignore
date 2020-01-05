@@ -486,3 +486,6 @@ MigrationBackup/
 
 ## Reports ##
 report
+
+## Ignore .env ##
+.env
