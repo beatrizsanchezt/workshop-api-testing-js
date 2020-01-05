@@ -7,7 +7,7 @@ const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 const repoToFind = 'jasmine-awesome-report';
 const userAgent = '12358-lab';
-const filePath = `${process.cwd()}/temp/repo2.zip`;
+const filePath = `${process.cwd()}/temp/repo.zip`;
 
 describe('Given I am a GitHub user', () => {
   describe('When I query another user', () => {
@@ -51,12 +51,10 @@ describe('Given I am a GitHub user', () => {
   describe('when I download a repository', () => {
     // let repoResponse;
     before(async () => {
-      try {
-        fileSystem.unlink(filePath);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('no file!');
-      }
+      await new Promise((resolve) => {
+        fileSystem.unlink(filePath, resolve);
+      });
+
       const response = await agent.get(`${urlBase}/repos/${githubUserName}/${repoToFind}/zipball`)
         .auth('token', config.accessToken)
         .set('User-Agent', userAgent);
