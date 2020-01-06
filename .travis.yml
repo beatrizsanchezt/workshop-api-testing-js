@@ -9,5 +9,5 @@ except:
 - "/^v\\d+\\.\\d+\\.\\d+$/"
 env:
   global:
-    downloadFolder: '../../temp'
+    DOWNLOAD_FOLDER: '../../temp'
     secure: h1UELBiRo21Lre321Id0Afao2LygDR6cjy/QEvlBgJWd866GNQs/DlQtWyynWR+AI7p/xp0v+874KWPWdeSjScEqyGD+3/B4YJ3aSnfGDEJ8kfz7Niw3+unlpJWViLQ1QY/OJ6F/9/TljfIIFkBK4fn4x4qtDVtn7cNVb+UR6VRMFUx6wOenG2JqSC1jk9U2Gxdnf3NFAtNq1FUfEGn0Wn9M6m6vigIQxrb46UvMg3eUDncGbY2WsbiK0VVnyy2nlmsQsG5T2vDOKhlXZEfXaxjVk5ceZBVhQ0Wls+etwBxUJVPAVD1682084pklSQVFw7E0ctpzYNKqMZyNqoLuiKGXjsjPGbtaFWiFX2nJzRJ35rsL0X8Ps6cMqLV5+xv8f1Nz7CWlk1j/cOt5xb1V0drDHG/6MICVAgctNiG667ORa2uvHeRmeUOtDurlqECiH4IHS/Bav30BAc6PjcJzgGNSHbCY/JKi3nBVC469MYYJgsIvjlTq48DtTyypYQ9hgaXbmmKq1bGhvxLjS/tp85V4FYVxei7Bc+g51TtCA4JkdMtau0BFywFWH3Q3EoNyQQy5Ug5w4JxQh4XAlQv24/K8Bh9hb/Lz+TxbIhzPMZGeArX/d0z+owxBGHZjvzAJkAJAUKrOZjemZyEq5msIQRnAuMlcy62aPopqPgcXy68=
