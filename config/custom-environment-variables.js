@@ -1,3 +1,4 @@
 module.exports = {
-  accessToken: 'ACCESS_TOKEN'
+  accessToken: 'ACCESS_TOKEN',
+  downloadFolder: './temp'
 };

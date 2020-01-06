@@ -1,13 +1,15 @@
 const agent = require('superagent');
-const { expect } = require('chai');
 const config = require('config');
+const { expect } = require('chai');
 const fileSystem = require('fs');
+const path = require('path');
 
 const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 const repoToFind = 'jasmine-awesome-report';
 const userAgent = '12358-lab';
-const filePath = `${process.cwd()}/temp/repo.zip`;
+const downloadsPath = path.resolve(process.cwd(), config.downloadFolder);
+const filePath = `${downloadsPath}/repo.zip`;
 
 describe('Given I am a GitHub user', () => {
   describe('When I query another user', () => {
@@ -51,9 +53,16 @@ describe('Given I am a GitHub user', () => {
   describe('when I download a repository', () => {
     // let repoResponse;
     before(async () => {
-      await new Promise((resolve) => {
-        fileSystem.unlink(filePath, resolve);
-      });
+      console.log(filePath);
+      console.log(config.downloadFolder);
+      console.log(process.cwd());
+      try {
+        await new Promise((resolve) => {
+          fileSystem.unlink(filePath, resolve);
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       const response = await agent.get(`${urlBase}/repos/${githubUserName}/${repoToFind}/zipball`)
         .auth('token', config.accessToken)
