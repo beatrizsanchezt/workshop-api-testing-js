@@ -1,7 +1,10 @@
 const agent = require('superagent');
 const config = require('config');
 const { expect } = require('chai');
+const chai = require('chai');
+const chaiSubset = require('chai-subset');
 const fileSystem = require('fs');
+const md5 = require('md5');
 const path = require('path');
 
 const urlBase = 'https://api.github.com';
@@ -9,7 +12,9 @@ const githubUserName = 'aperdomob';
 const repoToFind = 'jasmine-awesome-report';
 const userAgent = '12358-lab';
 const downloadsPath = path.resolve(process.cwd(), config.downloadFolder);
-const filePath = `${downloadsPath}/repo.zip`;
+let readmeResponse;
+
+chai.use(chaiSubset);
 
 describe('Given I am a GitHub user', () => {
   describe('When I query another user', () => {
@@ -51,17 +56,15 @@ describe('Given I am a GitHub user', () => {
   });
 
   describe('when I download a repository', () => {
-    // let repoResponse;
+    const filePath = `${downloadsPath}/repo.zip`;
     before(async () => {
-      console.log(filePath);
-      console.log(config.downloadFolder);
-      console.log(process.cwd());
       try {
         await new Promise((resolve) => {
           fileSystem.unlink(filePath, resolve);
         });
       } catch (error) {
-        console.log(error);
+        // eslint-disable-next-line no-console
+        console.warn(error);
       }
 
       const response = await agent.get(`${urlBase}/repos/${githubUserName}/${repoToFind}/zipball`)
@@ -78,7 +81,7 @@ describe('Given I am a GitHub user', () => {
         .pipe(fileSystem.createWriteStream(filePath));
     });
 
-    it('then ', async () => {
+    it('then a zip file should be downloaded', async () => {
       let fileDownloaded = true;
       fileSystem.access(filePath, fileSystem.F_OK, (err) => {
         if (err) {
@@ -86,6 +89,41 @@ describe('Given I am a GitHub user', () => {
         }
       });
       expect(fileDownloaded).equal(true);
+    });
+  });
+
+  describe('When I get the README.md information file', () => {
+    const expectedInformation = {
+      name: 'README.md',
+      path: 'README.md',
+      sha: 'b9900ca9b34077fe6a8f2aaa37a173824fa9751d'
+    };
+
+    before(async () => {
+      const response = await agent.get(`${urlBase}/repos/${githubUserName}/${repoToFind}/readme`)
+        .auth('token', config.accessToken)
+        .set('User-Agent', userAgent);
+      readmeResponse = response.body;
+    });
+
+    it('then I should verify the name, path and sha.', async () => {
+      expect(readmeResponse).to.containSubset(expectedInformation);
+    });
+  });
+
+  describe('When I download the README.md file', () => {
+    let readmeContent;
+    const md5Expected = '0e62b07144b4fa997eedb864ff93e26b';
+
+    before(async () => {
+      const response = await agent.get(readmeResponse.download_url)
+        .auth('token', config.accessToken)
+        .set('User-Agent', userAgent);
+      readmeContent = response.text;
+    });
+
+    it('then I should verify the md5.', async () => {
+      expect(md5(readmeContent)).to.equal(md5Expected);
     });
   });
 });
