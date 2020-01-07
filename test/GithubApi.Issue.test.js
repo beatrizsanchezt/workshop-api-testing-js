@@ -72,9 +72,4 @@ describe('Given I am an authenticated GitHub user', () => {
       expect(issueResponse.title).to.equals(newIssue.title);
     });
   });
-  /*
-Modifique el issue agregandole un cuerpo mediante un método PATCH la url usando la url
- https://api.github.com/repos/${username}/${repositoryName}/issues/{issueNumber}
- verifique que el título no haya cambiado y que contenga el nuevo cuerpo
-*/
 });
