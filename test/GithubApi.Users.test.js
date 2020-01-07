@@ -33,4 +33,38 @@ describe('Given I am an authenticated GitHub user', () => {
       expect(response.body.length).to.equal(30);
     });
   });
+
+  describe('When I try to get 10 users', async () => {
+    before(async () => {
+      try {
+        response = await agent.get(`${urlBase}/users`)
+          .auth('token', config.accessToken)
+          .set('User-Agent', userAgent)
+          .query({ per_page: 10 });
+      } catch (res) {
+        response = res;
+      }
+    });
+
+    it('and I should receive 10 users', () => {
+      expect(response.body.length).to.equal(10);
+    });
+  });
+
+  describe('When I try to get 50 users', async () => {
+    before(async () => {
+      try {
+        response = await agent.get(`${urlBase}/users`)
+          .auth('token', config.accessToken)
+          .set('User-Agent', userAgent)
+          .query({ per_page: 50 });
+      } catch (res) {
+        response = res;
+      }
+    });
+
+    it('and I should receive 50 users', () => {
+      expect(response.body.length).to.equal(50);
+    });
+  });
 });
