@@ -26,7 +26,7 @@ describe('Given I am an authenticated GitHub user', () => {
     });
   });
 
-  describe('When I request my user information', async () => {
+  describe('When I request my respositories', async () => {
     let response;
 
     before(async () => {
@@ -36,7 +36,7 @@ describe('Given I am an authenticated GitHub user', () => {
       firstRepo = response.body.shift();
     });
 
-    it('then I should receive my information', async () => {
+    it('then I should receive repo information', async () => {
       expect(firstRepo.name).to.not.deep.equals(undefined);
     });
   });
